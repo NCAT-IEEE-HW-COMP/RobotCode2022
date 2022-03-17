@@ -19,15 +19,15 @@ def log(image,clr,color,off):
 	image = cv2.putText(image, str(clr), org, font, 
 					fontScale, color, thickness, cv2.LINE_AA)
 
-def check(chan,img):
+def check(chan,img,mul):
     ret = False
-    if( round( (np.sum(chan[0:h,x_l:x_r])/(np.sum(img[0:h,x_l:x_r]))) *1.36) == 1) : ret =  True
+    if( round( (np.sum(chan[0:h,x_l:x_r])/(np.sum(img[0:h,x_l:x_r]))) *mul) == 1) : ret =  True
     return ret  
 
 
 
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 
 
@@ -62,22 +62,25 @@ while(cap.isOpened()):
     g = False 
     b = False
 
-    cup = False 
+    
 
     for x in range(interval):
+        cup = False 
         #img_list.append(np.sum(R[0:h,x_l:x_r]))
-        img_list.append(round( (np.sum(R[0:h,x_l:x_r])/(np.sum(image[0:h,x_l:x_r]))) *1.36))
+        #img_list.append(round( (np.sum(R[0:h,x_l:x_r])/(np.sum(image[0:h,x_l:x_r]))) *1.36))
         columns.append(x_l)
 
         #printf("value=%d, x_l=%d, x_r=%d\n",img_list[x],x_l,x_r)
-        r=check(R,image)
-        g=check(G,image)
-        b=check(B,image)
+        r=check(R,image,1.3)
+        g=check(G,image,1.3)
+        b=check(B,image,1.6)
 
         printf("%d,%d,%d\n",r,g,b)
 
         if(r and not g and not b):
             cup = True
+
+        img_list.append(cup)
 
 
 
