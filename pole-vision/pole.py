@@ -18,7 +18,7 @@ image = cv2.imread('C:\\Users\\mcser\\Documents\\scoo\\NCAT 2021-22\\IEEEHWCOMP\
 h = image.shape[0]
 w = image.shape[1]
 
-const = 40
+const = 80
 
 
 bottomL = round((h/2)-(h/const))
